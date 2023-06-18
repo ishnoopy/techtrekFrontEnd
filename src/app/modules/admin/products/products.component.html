@@ -1,0 +1,98 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="format max-w-7xl mx-auto mt-10">
+    <div class="relative overflow-x-auto">
+        <h1 class="text-center">Products</h1>
+        <button class="bg-blue-900 text-white px-3 py-1.5 rounded-lg" (click)="openForm()">Add Product</button>
+        <table class="w-full text-sm text-center  border p-5 mt-10">
+            <thead class="text-xs  uppercase bg-blue-900">
+                <tr class="text-center">
+                    <th scope="col" class="px-6 py-3 text-white">
+                        Id
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-white">
+                        Image
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-white">
+                        Name
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-white">
+                        Price
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-white">
+                        Sold
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-white">
+                        Stock
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-white">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products" class="bg-white border-b text-center">
+                    <td scope="row" class="px-6 py-4 align-middle font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="admin/orders/{{product.id}}">{{product.id}}</a> 
+                    </td>
+                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <img src="{{apiUrl}}{{product.img_url}}" class="m-0 w-24 h-24 rounded-lg mx-auto py-1">
+                    </td>
+                    <td class="px-6 py-4 align-middle">
+                        {{product.name}}
+                    </td>
+                    <td class="px-6 py-4 align-middle">
+                        {{product.price}}
+                    </td>
+                    <td class="px-6 py-4 align-middle">
+                        {{product.sold}}
+                    </td>
+                    <td class="px-6 py-4 align-middle">
+                        {{product.stock}}
+                    </td>
+                    <td class="px-6 py-4 align-middle">
+                        <button class="bg-blue-900 text-white px-3 py-1.5 rounded-lg" (click)="navigateToProductDetails(product.id)">Edit</button>
+                        <button class="bg-red-900 text-white px-3 py-1.5 rounded-lg" (click)="deleteProduct(product.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="createForm" style="display: none;">
+    <div #createForm class="format max-w-none text-black">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="text-start">
+            <h1 class="text-center">Create Product</h1>
+            <div class="flex items-center mb-4">
+                <label class="w-2/6 font-bold">Category:</label>
+                <select name="category" formControlName="category_id" class="w-2/3 form-input bg-white">
+                    <option value="" disabled hidden>Select Category</option>
+                    <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+                </select>
+            </div>
+         
+            <div class="flex items-center mb-4">
+                <label class="w-2/6 font-bold">Product Name:</label>
+                <input type="text" formControlName="name" class="w-2/3 form-input" placeholder="Product Name">
+            </div>
+            <div class="flex items-center mb-4"> 
+                <label class="w-2/6 font-bold">Price:</label>
+                <input type="number" formControlName="price" class="w-2/3 form-input" placeholder="Price">
+            </div>
+            <div class="flex items-center mb-4">
+                <label class="w-2/6 font-bold">Description:</label>
+                <textarea formControlName="description" cols="20" rows="5" class="w-2/3 form-input" placeholder="Description"></textarea>
+            </div>
+            <div class="flex items-center mb-4">
+                <label class="w-2/6 font-bold">Image:</label>
+                <input #imgInput type="file" (change)="onImageFileUpload($event)" class="w-2/3 form-input">
+            </div>
+            <div class="flex items-center mb-4">
+                <label class="w-2/6 font-bold">Stock:</label>
+                <input type="number" formControlName="stock" class="w-2/3 form-input" placeholder="Stock"> 
+            </div>
+            <button type="submit" class="form-submit block mx-auto mt-5 bg-blue-900 text-white px-4 py-2">Create</button>
+        </form>
+    </div>    
+</div>

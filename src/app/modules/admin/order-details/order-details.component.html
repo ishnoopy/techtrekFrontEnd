@@ -1,0 +1,64 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="format max-w-7xl mt-10 mx-auto">
+    <h1 class="text-center">Order Details</h1>
+    <button (click)="generateReceipt()" class="bg-blue-900 text-white px-3 py-1.5 rounded-lg">Generate Receipt</button>
+    <div class="flex gap-10">
+        
+    <div class="w-4/6">
+        <div class="relative overflow-x-auto">
+            <table class="w-full text-sm text-left text-gray-500 border p-5 mt-10">
+                <thead class="text-xs bg-blue-900">
+                    <tr class="text-center">
+                        <th scope="col" class="px-6 py-3 text-white">
+                            Image
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-white">
+                            Product Name
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-white">
+                            Quantity
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-white">
+                            Total
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of orderDetails.order_items" class="bg-white border-b text-center">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <img src="{{apiUrl}}{{item.img_url}}" class="m-0 w-24 h-24 rounded-lg mx-auto py-1">
+                        </td>
+                        <td class="px-6 py-4 align-middle">
+                            {{item.name}}
+                        </td>
+                        <td class="px-6 py-4 align-middle">
+                            {{item.qty}}
+                        </td>
+                        <td class="px-6 py-4 align-middle">
+                            ${{item.price * item.qty | number}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="w-2/6 mt-10">
+       <div class="mx-auto text-center">
+            <div class="border p-5">
+                <h2 class="px-4 py-2 bg-blue-900 text-white">Total Cost:</h2>
+                <h1>${{orderDetails.total_cost | number}}</h1>
+            </div>
+            <div class="flex">
+                <div class="border p-5 w-full">
+                    <h3 class="px-4 py-2 bg-blue-900 text-white">Order Status:</h3>
+                    <h4 >{{orderDetails.status | titlecase}}</h4>
+                </div>
+                <div class="border p-5 w-full">
+                    <h3 class="px-4 py-2 bg-blue-900 text-white">Order Date:</h3>
+                    <h4>{{orderDetails.created_at | date}}</h4>
+                </div>
+            </div>
+          
+       </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<app-navbar></app-navbar>
+<div class="format flex gap-10 max-w-7xl mx-auto mt-10 min-h-screen">
+    <div class="w-1/6">
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Category</label>
+        <select #category id="countries" (change)="getProductsByCategory(category.value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="0" selected>All</option>
+            <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+
+        </select>
+    </div>
+    <div class="w-5/6">
+        <h1 class="text-center">Products</h1>
+        <div class="grid grid-cols-4 gap-4">
+            <app-card *ngFor="let product of products" [product]="product" class="hover:scale-110 duration-200"></app-card>
+        </div>
+        
+    </div>
+
+</div>
+
+<app-footer></app-footer>

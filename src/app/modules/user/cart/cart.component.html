@@ -1,0 +1,57 @@
+<app-navbar [cartCount]="cartCount"></app-navbar>
+<div class="format max-w-7xl mx-auto">
+
+    <div class="flex gap-10">
+        <div class="w-4/6">
+            <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 border p-5 mt-10">
+                    <thead class="text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr class="text-center">
+                            <th scope="col" class="px-6 py-3">
+                                Image
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Product Name
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Quantity
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Total
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of items" class="bg-white border-b text-center">
+                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <img src="{{apiUrl}}{{item.img_url}}" class="m-0 w-24 h-24 rounded-lg mx-auto py-1">
+                            </td>
+                            <td class="px-6 py-4 align-middle">
+                                {{item.name}}
+                            </td>
+                            <td class="px-6 py-4 align-middle">
+                               <input #qty (change)="updateCartItem(item.id, qty.value)" type="number" [value]="item.qty">
+                            </td>
+                            <td class="px-6 py-4 align-middle">
+                                ${{item.price * item.qty | number}}
+                            </td>
+                            <td class="px-6 py-4 align-middle">
+                                <button type="button" (click)="deleteCartItem(item.id)"><img src="assets/cross.png" alt="delete icon" class="w-5"></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="w-2/6 mt-10">
+            <h2>Total:</h2>
+            <h1>${{totalAmount | number}}</h1>
+
+            <button type="button" (click)="checkOut()" [disabled]="items.length === 0 || !isLoggedIn" class="w-5/6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Checkout</button>
+        </div>
+    </div>
+
+</div>

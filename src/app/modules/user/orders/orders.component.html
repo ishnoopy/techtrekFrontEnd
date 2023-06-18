@@ -1,0 +1,41 @@
+<app-navbar></app-navbar>
+
+<div class="format max-w-7xl mx-auto">
+    <div class="relative overflow-x-auto">
+        <h1 class="text-center">Orders</h1>
+        <table class="w-full text-sm text-center  border p-5 mt-10">
+            <thead class="text-xs  uppercase bg-blue-900">
+                <tr class="text-center">
+                    <th scope="col" class="px-6 py-3 text-white">
+                        Id
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-white">
+                        Customer Name
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-white">
+                        Date
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-white">
+                        Status
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders" class="bg-white border-b text-center">
+                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="/orders/{{order.id}}">{{order.id}}</a> 
+                    </td>
+                    <td class="px-6 py-4 align-middle">
+                        {{order.first_name}}  {{order.last_name}}
+                    </td>
+                    <td class="px-6 py-4 align-middle">
+                       {{order.created_at | date}}
+                    </td>
+                    <td class="px-6 py-4 align-middle">
+                       {{order.status | titlecase}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
