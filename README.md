@@ -1,5 +1,5 @@
 # Techtrek
-# uses Angular.
+# uses Angular V16.
 
 NOTE: To run setup the frontend, make sure to setup the backend (TechtrekAPI), check for the readme file to set it up. Instructions:
 
