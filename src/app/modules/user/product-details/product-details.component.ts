@@ -42,6 +42,17 @@ export class ProductDetailsComponent implements OnInit{
   }
 
   addToCart(){
+   if(this.form.value.qty > this.product.stock){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Product out of stock',
+      toast:true,
+      position:'top-end',
+      timer:2000,
+      showConfirmButton:false
+    })
+   }else{
     this.userService.addToCart(this.form.value).subscribe((res:any)=>{
       console.log(res);
       this.getCartItems();
@@ -50,11 +61,12 @@ export class ProductDetailsComponent implements OnInit{
         title: 'Success',
         text: 'Product added to cart successfully',
         toast:true,
-        position:'top-end',
+        position:'top-end'
       })
     },(err)=>{
       console.log(err);
     });
+   }
   }
 
   getCartItems(){
